@@ -118,7 +118,8 @@ Never create files directly in the workspace root. Always use a project folder.
 - Use list_memory to see all available memory files
 - Use delete_memory to clean up outdated daily notes
 - Do NOT just say you'll remember something — actually call write_memory
-- Do NOT use write_memory tool for redundant information like heartbeat logs
+- NEVER write heartbeat results, health checks, or periodic status logs to memory — these are ephemeral and must be discarded after each run
+- Memory is for durable user knowledge only: facts, preferences, project notes, decisions
 
 ## Skills
 
@@ -269,6 +270,13 @@ Schedule or manage cron jobs.
 		"HEARTBEAT.md": `# Heartbeat
 
 This file is checked periodically (every 60 seconds). Add tasks here that should run on a schedule.
+
+## IMPORTANT RULES FOR HEARTBEAT PROCESSING
+
+- After reviewing this file, take actions ONLY if there are explicit tasks listed below
+- If there are no tasks (or all tasks are complete), do NOTHING — do not send any message, do not call write_memory or any memory tool
+- NEVER log "heartbeat check complete", "system status: healthy", or any status message to memory files — these clutter memory with useless noise
+- Heartbeat results are ephemeral: process, act if needed, then stop silently
 
 ## Periodic Tasks
 
