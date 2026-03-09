@@ -7,8 +7,7 @@ import (
 	"strconv"
 )
 
-// LoadConfig loads config from ~/.picobot/config.json if present, then applies
-// any environment variable overrides on top.
+// LoadConfig loads config from ~/.picobot/config.json if present, then applies any environment variable overrides on top.
 func LoadConfig() (Config, error) {
 	home, err := os.UserHomeDir()
 	if err != nil {
@@ -23,15 +22,12 @@ func LoadConfig() (Config, error) {
 			return Config{}, err
 		}
 	}
-	// env vars always take precedence over the config file, enabling
-	// runtime overrides without editing config.json.
+	// env vars always take precedence over the config file, enabling runtime overrides without editing config.json.
 	applyEnvOverrides(&cfg)
 	return cfg, nil
 }
 
-// applyEnvOverrides reads well-known environment variables and overwrites the
-// corresponding config fields.  This mirrors what docker/entrypoint.sh does via
-// jq, but works for any deployment (bare binary, Docker, systemd, …).
+// applyEnvOverrides updates config fields from all environment variables
 func applyEnvOverrides(cfg *Config) {
 	if v := os.Getenv("PICOBOT_MODEL"); v != "" {
 		cfg.Agents.Defaults.Model = v
